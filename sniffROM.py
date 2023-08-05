@@ -179,12 +179,10 @@ def dump(data, length, addr):
     print ""
 
 def plot_func(x, pos):
-    s = '0x%06x' % (int(x)*GRAPH_BYTES_PER_ROW)
-    return s
+    return '0x%06x' % (int(x)*GRAPH_BYTES_PER_ROW)
 
 def plot_func_minor(x, pos):
-    s = '0x%06x' % (int(x)*MINOR_GRAPH_BYTES_PER_ROW)
-    return s
+    return '0x%06x' % (int(x)*MINOR_GRAPH_BYTES_PER_ROW)
 
 def print_data(data, addr, access_type):
     if offset <= 4:
@@ -232,15 +230,13 @@ def bytes_to_addr(bytes):
 
 def decode_spi_dualio(io0_byte, io1_byte):
     read_bytes = 0
-    bitcnt = 0
-    while bitcnt < 16:
+    for bitcnt in range(16):
         if bitcnt & 1:
             read_bytes |= ((io1_byte & 1) << bitcnt)
             io1_byte >>= 1
         else:
             read_bytes |= ((io0_byte & 1) << bitcnt)
             io0_byte >>= 1
-        bitcnt += 1
     return ((read_bytes >> 8) & 0xFF), read_bytes & 0xFF
 
 
